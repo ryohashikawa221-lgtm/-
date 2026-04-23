@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サマースクール 先生向け運用マニュアル 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;700&display=swap');
+
+  :root {
+    --navy: #1b2a4a;
+    --navy2: #243860;
+    --gold: #c9a84c;
+    --green: #16a34a;
+    --red: #dc2626;
+    --purple: #6366f1;
+    --bg: #f8f6f1;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #e8e4dc;
+    color: #1a1a1a;
+    font-size: 14px;
+  }
+
+  /* ── スライド共通 ── */
+  .slide {
+    width: 960px;
+    min-height: 540px;
+    margin: 24px auto;
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(0,0,0,.18);
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+
+  /* ── 印刷 ── */
+  @media print {
+    body { background: #fff; }
+    .slide {
+      margin: 0;
+      box-shadow: none;
+      page-break-after: always;
+      width: 100%;
+    }
+    .no-print { display: none !important; }
+  }
+
+  /* ── 印刷ボタン ── */
+  .print-bar {
+    width: 960px;
+    margin: 20px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 4px 4px 0 0;
+    font-size: 12px;
+  }
+  .print-btn {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 7px 20px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+
+  /* ── スライド1：表紙 ── */
+  .slide-cover {
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 540px;
+    text-align: center;
+    position: relative;
+  }
+  .slide-cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(45deg, rgba(255,255,255,.03), rgba(255,255,255,.03) 1px, transparent 1px, transparent 14px);
+  }
+  .cover-badge {
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    padding: 5px 18px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+  }
+  .cover-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 38px;
+    color: #fff;
+    letter-spacing: .08em;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .cover-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,.6);
+    letter-spacing: .12em;
+    margin-bottom: 36px;
+  }
+  .cover-chips {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+  }
+  .chip {
+    background: rgba(255,255,255,.12);
+    color: rgba(255,255,255,.85);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    border: 1px solid rgba(255,255,255,.2);
+  }
+
+  /* ── スライド共通レイアウト ── */
+  .slide-header {
+    background: var(--navy);
+    padding: 18px 36px 14px;
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+  }
+  .slide-num {
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 900;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+  }
+  .slide-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 22px;
+    color: #fff;
+    letter-spacing: .06em;
+  }
+  .slide-subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,.55);
+    margin-top: 2px;
+  }
+  .slide-body {
+    padding: 24px 36px;
+  }
+
+  /* ── カード ── */
+  .card {
+    border: 1px solid #e5e0d5;
+    border-radius: 4px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .card-title {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--navy);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-body {
+    font-size: 12px;
+    color: #444;
+    line-height: 1.9;
+  }
+  .card-accent { border-left: 3px solid var(--gold); background: #faf8f3; }
+  .card-blue   { border-left: 3px solid #3b82f6; background: #eff6ff; }
+  .card-green  { border-left: 3px solid var(--green); background: #f0fdf4; }
+  .card-red    { border-left: 3px solid var(--red); background: #fef2f2; }
+  .card-purple { border-left: 3px solid var(--purple); background: #eef2ff; }
+
+  /* ── グリッド ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+  /* ── ステップ ── */
+  .steps { display: flex; gap: 0; margin-bottom: 14px; }
+  .step {
+    flex: 1;
+    text-align: center;
+    padding: 14px 8px;
+    border: 1px solid #e5e0d5;
+    border-right: none;
+    position: relative;
+  }
+  .step:last-child { border-right: 1px solid #e5e0d5; }
+  .step::after {
+    content: '→';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: 700;
+    z-index: 1;
+  }
+  .step:last-child::after { display: none; }
+  .step-num {
+    width: 26px;
+    height: 26px;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+  }
+  .step-label { font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .step-desc { font-size: 11px; color: #666; line-height: 1.6; }
+
+  /* ── テーブル ── */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: var(--navy); color: #fff; padding: 8px 12px; text-align: left; font-weight: 500; }
+  td { padding: 7px 12px; border-bottom: 1px solid #eee; }
+  tr:nth-child(even) td { background: #faf8f3; }
+
+  /* ── タグ ── */
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .tag-gold   { background: var(--gold); color: var(--navy); }
+  .tag-navy   { background: var(--navy); color: #fff; }
+  .tag-green  { background: #dcfce7; color: #166534; }
+  .tag-red    { background: #fee2e2; color: #991b1b; }
+  .tag-purple { background: #ede9fe; color: #5b21b6; }
+
+  /* ── アイコン付きリスト ── */
+  .icon-list { list-style: none; }
+  .icon-list li {
+    padding: 5px 0 5px 24px;
+    position: relative;
+    font-size: 12px;
+    color: #444;
+    line-height: 1.7;
+    border-bottom: 1px solid #f0ebe0;
+  }
+  .icon-list li:last-child { border: none; }
+  .icon-list li::before {
+    content: attr(data-icon);
+    position: absolute;
+    left: 0;
+  }
+
+  /* ── 大見出し ── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  /* ── フッター ── */
+  .slide-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--navy);
+    padding: 6px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    color: rgba(255,255,255,.45);
+  }
+
+  .highlight-box {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 12px;
+    line-height: 1.8;
+    margin-top: 10px;
+  }
+  .highlight-box strong { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="print-bar no-print">
+  <span>駿台ミシガン国際学院 2026サマースクール 先生向け運用マニュアル</span>
+  <button class="print-btn" onclick="window.print()">🖨 印刷 / PDF保存</button>
+</div>
+
+<!-- ════════════════════════════════
+     スライド1：表紙
+════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-cover">
+    <div class="cover-badge">SUNDAI MICHIGAN INTERNATIONAL ACADEMY</div>
+    <div class="cover-title">2026 サマースクール<br>先生向け運用マニュアル</div>
+    <div class="cover-sub">駿台ミシガン国際学院　内部資料</div>
+    <div class="cover-chips">
+      <div class="chip">📅 開催期間：2026年6月〜8月</div>
+      <div class="chip">🌐 Web申込システム使用</div>
+      <div class="chip">📊 スプレッドシート管理</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     スライド2：システム全体像
+════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">1</div>
+    <div>
+      <div class="slide-title">システムの全体像</div>
+      <div class="slide-subtitle">保護者〜スタッフの情報の流れ</div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="steps" style="margin-bottom:20px">
+      <div class="step">
+        <div class="step-num">①</div>
+        <div class="step-label">保護者が申込</div>
+        <div class="step-desc">Webサイトで講座を選んで送信</div>
+      </div>
+      <div class="step">
+        <div class="step-num">②</div>
+        <div class="step-label">メール自動送信</div>
+        <div class="step-desc">3名のスタッフ＋保護者に自動メール</div>
+      </div>
+      <div class="step">
+        <div class="step-num">③</div>
+        <div class="step-label">SS自動記録</div>
+        <div class="step-desc">申込一覧・申込数集計に自動保存</div>
+      </div>
+      <div class="step">
+        <div class="step-num">④</div>
+        <div class="step-label">帳票出力</div>
+        <div class="step-desc">時間割・名簿をボタン1つで出力</div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card card-accent">
+        <div class="card-title">📬 申込通知メールの送信先（3名）</div>
+        <div class="card-body">
+          r-hashikawa@sundai-kaigai.jp<br>
+          michi-info@sundai-kaigai.jp<br>
+          m-sakamoto@sundai-kaigai.jp
+        </div>
+      </div>
+      <div class="card card-blue">
+        <div class="card-title">📊 スプレッドシートのシート構成</div>
+        <div class="card-body">
+          <span class="tag tag-gold">マスター</span> 学校設定 / 講座 / 英検 / 料金 / 割引<br>
+          <span class="tag tag-navy">自動</span> 申込一覧 / 申込数集計<br>
+          <span class="tag tag-green">出力</span> 先生別時間割 / 講座別名簿
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>駿台ミシガン国際学院 2026サマースクール 先生向け運用マニュアル</span>
+    <span>2 / 8</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     スライド3：毎日の確認
+════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">2</div>
+    <div>
+      <div class="slide-title">毎日やること</div>
+      <div class="slide-subtitle">申込期間中の日常運用</div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2" style="gap:14px">
+      <div>
+        <div class="section-label">毎朝チェック</div>
+        <ul class="icon-list">
+          <li data-icon="📧">メールで申込通知が届いていないか確認</li>
+          <li data-icon="📊">スプレッドシートの「申込一覧」で件数を確認</li>
+          <li data-icon="🔒">定員間近の講座がないか「申込数集計」を確認</li>
+        </ul>
+
+        <div class="section-label" style="margin-top:16px">定員管理（重要）</div>
+        <ul class="icon-list">
+          <li data-icon="🚨">定員に達したら、または締め切りたい場合は<br>Webサイトの <strong>⑤管理 → 🔒募集管理</strong> から停止</li>
+          <li data-icon="✅">「募集停止」にすると即座に申込ページでグレーアウト</li>
+          <li data-icon="▶">「募集再開」ボタンでいつでも戻せる</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label">申込があったら</div>
+        <ul class="icon-list">
+          <li data-icon="1️⃣">メールの内容を確認</li>
+          <li data-icon="2️⃣">問題があれば保護者にメールで返信</li>
+          <li data-icon="3️⃣">特別な対応が必要な場合（アレルギー等）はメモ</li>
+          <li data-icon="4️⃣">スプレッドシートは自動で更新されるので編集不要</li>
+        </ul>
+
+        <div class="card card-red" style="margin-top:14px">
+          <div class="card-title">⚠️ 注意</div>
+          <div class="card-body">
+            申込一覧シートを手動で編集すると<br>
+            申込数の集計がズレる場合があります。<br>
+            <strong>原則として申込一覧シートは閲覧のみ</strong>にしてください。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>駿台ミシガン国際学院 2026サマースクール 先生向け運用マニュアル</span>
+    <span>3 / 8</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     スライド4：時間割・名簿の出力
+════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">3</div>
+    <div>
+      <div class="slide-title">時間割・名簿を出力する</div>
+      <div class="slide-subtitle">スプレッドシートのメニューから操作</div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="card card-accent" style="margin-bottom:16px">
+      <div class="card-title">📊 出力方法（ボタン1つでOK）</div>
+      <div class="card-body">
+        スプレッドシートを開く → 上部メニュー「<strong>📊 サマースクール管理</strong>」をクリック
+      </div>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">📅 先生別時間割</div>
+        <div class="card-body">
+          先生が列・時間帯が行のパンフレット形式。
+          各コマに受講者名・出欠チェックボックス付き。
+          <br><br>
+          <span class="tag tag-green">緑</span> 申込あり<br>
+          <span class="tag" style="background:#fff7ed;color:#c2410c">橙</span> 残りわずか<br>
+          <span class="tag tag-red">赤</span> 満員
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">👥 講座別名簿</div>
+        <div class="card-body">
+          ターム → 時間帯 → 講座ごとに受講者の
+          氏名・保護者名・メールが一覧表示。
+          <br><br>
+          印刷してクリップボードに挟んで
+          受付・出欠管理に使用できます。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📋 申込サマリー</div>
+        <div class="card-body">
+          申込件数・総額・講座ごとの
+          申込状況を一覧表示。
+          <br><br>
+          定員管理・収支確認に
+          使用してください。
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:14px">
+      💡 「<strong>全レポートを一括出力</strong>」を選ぶと3種類すべてを一度に出力できます
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>駿台ミシガン国際学院 2026サマースクール 先生向け運用マニュアル</span>
+    <span>4 / 8</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     スライド5：出欠管理
+════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">4</div>
+    <div>
+      <div class="slide-title">出欠管理のやり方</div>
+      <div class="slide-subtitle">時間割シートのチェックボックスを使う</div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2">
+      <div>
+        <div class="section-label">時間割シートの見方</div>
+        <table style="margin-bottom:14px">
+          <tr><th>表示</th><th>意味</th><th>操作</th></tr>
+          <tr><td>☑（チェックあり）</td><td style="color:#16a34a;font-weight:700">出席</td><td>そのまま</td></tr>
+          <tr><td>□（チェックなし）</td><td style="color:#dc2626;font-weight:700">欠席</td><td>クリックで切替</td></tr>
+        </table>
+
+        <div class="section-label">出欠の記録手順</div>
+        <ul class="icon-list">
+          <li data-icon="1️⃣">スプレッドシートの「先生別時間割」シートを開く</li>
+          <li data-icon="2️⃣">該当の日付列・生徒行のチェックを確認</li>
+          <li data-icon="3️⃣">欠席の場合はチェックを外す（クリック1回）</li>
+          <li data-icon="4️⃣">自動保存されるので保存操作は不要</li>
+        </ul>
+      </div>
+      <div>
+        <div class="card card-green">
+          <div class="card-title">💡 ポイント</div>
+          <div class="card-body">
+            チェックボックスはスプレッドシートの
+            標準機能を使っています。
+            スマートフォンからもチェック可能です。<br><br>
+            授業前に時間割シートを開いておくと
+            スムーズに出欠が取れます。
+          </div>
+        </div>
+        <div class="card card-accent" style="margin-top:12px">
+          <div class="card-title">📱 スマホからアクセス</div>
+          <div class="card-body">
+            Googleスプレッドシートアプリをインストールして
+            スプレッドシートを開くとスマホでもチェックができます。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>駿台ミシガン国際学院 2026サマースクール 先生向け運用マニュアル</span>
+    <span>5 / 8</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     スライド6：募集停止の操作
+════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">5</div>
+    <div>
+      <div class="slide-title">募集停止の操作方法</div>
+      <div class="slide-subtitle">定員前に締め切りたい場合</div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="steps" style="margin-bottom:20px">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-label">管理ページを開く</div>
+        <div class="step-desc">Webサイト → ⑤管理 → パスワード入力（sundai2026）</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-label">🔒募集管理を選ぶ</div>
+        <div class="step-desc">タブ「🔒 募集管理」をクリック</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-label">停止ボタンを押す</div>
+        <div class="step-desc">該当講座の「⏸ 募集停止」ボタンをクリック</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-label">即時反映</div>
+        <div class="step-desc">保護者の画面で紫にグレーアウト表示</div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card card-purple">
+        <div class="card-title">🔒 停止中の表示</div>
+        <div class="card-body">
+          保護者の申込ページで該当コースが<br>
+          <strong style="color:#4338ca">紫でグレーアウト</strong>されて<br>
+          「🚫 募集を締め切りました」と表示されます。<br>
+          選択できなくなります。
+        </div>
+      </div>
+      <div class="card card-green">
+        <div class="card-title">▶ 再開するには</div>
+        <div class="card-body">
+          同じ画面で<br>
+          「<strong>▶ 募集再開</strong>」ボタンをクリックするだけ。<br>
+          すぐに申込可能な状態に戻ります。
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>駿台ミシガン国際学院 2026サマースクール 先生向け運用マニュアル</span>
+    <span>6 / 8</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     スライド7：来年の運用・他校舎
+════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">6</div>
+    <div>
+      <div class="slide-title">来年・他校舎での運用</div>
+      <div class="slide-subtitle">スプレッドシートを更新するだけで使い回し可能</div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="card card-accent" style="margin-bottom:16px">
+      <div class="card-title">🔄 毎年の更新作業はこれだけ</div>
+      <div class="card-body">
+        スプレッドシートの各シートを更新するだけでWebサイトに自動反映。コードの編集は不要です。
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>シート名</th>
+          <th>更新内容</th>
+          <th>頻度</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>学校設定</strong></td>
+          <td>学校名・メールアドレス・パスワード・締め切り日</td>
+          <td><span class="tag tag-gold">毎年</span></td>
+        </tr>
+        <tr>
+          <td><strong>講座マスター</strong></td>
+          <td>講座名・ターム・日程・時間帯・担当先生・定員</td>
+          <td><span class="tag tag-gold">毎年</span></td>
+        </tr>
+        <tr>
+          <td><strong>英検マスター</strong></td>
+          <td>英検講座の内容・担当・日程</td>
+          <td><span class="tag tag-gold">毎年</span></td>
+        </tr>
+        <tr>
+          <td><strong>料金マスター</strong></td>
+          <td>学年別グループ・個別料金</td>
+          <td><span class="tag tag-green">変更時のみ</span></td>
+        </tr>
+        <tr>
+          <td><strong>割引マスター</strong></td>
+          <td>コマ数・きょうだい・補習校・お友達割引率</td>
+          <td><span class="tag tag-green">変更時のみ</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" style="margin-top:14px">
+      🏫 <strong>他校舎での運用：</strong>「学校設定」シートの学校名・メール・パスワードを変更するだけで別校舎でも使用可能
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>駿台ミシガン国際学院 2026サマースクール 先生向け運用マニュアル</span>
+    <span>7 / 8</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     スライド8：困ったときは
+════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="slide-num">7</div>
+    <div>
+      <div class="slide-title">困ったときは</div>
+      <div class="slide-subtitle">よくある問題と対処法</div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2">
+      <div>
+        <div class="section-label">よくある問題</div>
+        <ul class="icon-list">
+          <li data-icon="❓">
+            <strong>申込が来ているのに申込数が増えていない</strong><br>
+            → GASのデプロイが古い可能性。<br>
+            「デプロイを管理」から新バージョンで再デプロイ
+          </li>
+          <li data-icon="❓">
+            <strong>管理ページで「通信エラー」が出る</strong><br>
+            → GASのURLを確認。または<br>
+            スプレッドシートの「拡張機能 → Apps Script」を確認
+          </li>
+          <li data-icon="❓">
+            <strong>時間割を出力しても空白が多い</strong><br>
+            → 申込がまだ入っていない状態。正常です。
+          </li>
+          <li data-icon="❓">
+            <strong>募集停止が反映されない</strong><br>
+            → ページをリロード（F5）してもう一度確認
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div class="card card-accent" style="margin-bottom:12px">
+          <div class="card-title">🌐 重要なURL</div>
+          <div class="card-body" style="word-break:break-all">
+            <strong>保護者向け申込サイト：</strong><br>
+            michigansummer2026.netlify.app<br><br>
+            <strong>管理スプレッドシート：</strong><br>
+            docs.google.com/spreadsheets/d/<br>1blk04d3ELFb-KjRTzxBMS1nhKdnMl-EUFS-65MQwqsk
+          </div>
+        </div>
+        <div class="card card-blue">
+          <div class="card-title">🔑 管理パスワード</div>
+          <div class="card-body">
+            <span style="font-family:monospace;font-size:16px;font-weight:700;color:var(--navy)">sundai2026</span><br>
+            <span style="font-size:11px;color:#666">※スプレッドシートの「学校設定」シートで変更可能</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>駿台ミシガン国際学院 2026サマースクール 先生向け運用マニュアル</span>
+    <span>8 / 8</span>
+  </div>
+</div>
+
+</body>
+</html>
