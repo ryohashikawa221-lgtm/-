@@ -5,11 +5,11 @@
 #   powershell -ExecutionPolicy Bypass -File install.ps1 -Name 山田
 #
 #   -Name       管理画面に表示する名前（必須）
-#   -FolderPath 共有フォルダの場所（省略時は OneDrive 内の「勤怠記録」を自動で探す）
+#   -FolderPath 本人用フォルダの場所（省略時は OneDrive 内の「勤怠_名前」フォルダを自動で探す）
 param(
     [string]$Name,
     [string]$FolderPath,
-    [string]$FolderName = '勤怠記録',
+    [string]$FolderName,
     [int]$IntervalMinutes = 15
 )
 
@@ -18,6 +18,7 @@ $ErrorActionPreference = 'Stop'
 if (-not $Name) { $Name = Read-Host '管理画面に表示する名前を入力してください（例: 山田）' }
 $Name = ($Name -replace '[,\r\n"\\/:*?<>|]', ' ').Trim()
 if (-not $Name) { throw '名前が空です。' }
+if (-not $FolderName) { $FolderName = "勤怠_$Name" }
 
 # --- 共有フォルダを探す ---
 if (-not $FolderPath) {
@@ -31,7 +32,7 @@ if (-not $FolderPath) {
 }
 if (-not $FolderPath -or -not (Test-Path $FolderPath)) {
     Write-Host "OneDrive の中に「$FolderName」フォルダが見つかりませんでした。" -ForegroundColor Yellow
-    Write-Host 'README の「1. 共有フォルダを用意する」を済ませてから、もう一度実行してください。'
+    Write-Host 'README の「1. 職員ごとのフォルダを用意する」を済ませてから、もう一度実行してください。'
     Write-Host 'フォルダの場所が分かっている場合は -FolderPath で指定できます。'
     Read-Host 'Enter キーで閉じます'
     exit 1

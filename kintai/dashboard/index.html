@@ -80,7 +80,7 @@
 <main>
   <section id="welcome" class="panel empty">
     <h2>勤怠記録フォルダを開いてください</h2>
-    <p>OneDrive の「勤怠記録」フォルダを選ぶと、職員ごとの出勤・退勤・遅刻を集計します。<br>
+    <p>OneDrive の「勤怠記録」フォルダ（職員ごとのフォルダが入った親フォルダ）を選ぶと、職員ごとの出勤・退勤・遅刻を集計します。<br>
        データはこのPCの中だけで処理され、外部には送られません。</p>
     <div class="actions">
       <button class="primary" id="btn-open2">フォルダを開く</button>
@@ -265,17 +265,27 @@
     $('dir-input').click();
   }
   async function loadFromHandle() {
+    // 職員ごとのフォルダ（勤怠_名前）の中も読む
     const files = [];
-    for await (const entry of dirHandle.values()) {
-      if (entry.kind === 'file' && entry.name.toLowerCase().endsWith('.csv')) files.push(await entry.getFile());
-    }
+    const walk = async (dir, depth) => {
+      for await (const entry of dir.values()) {
+        if (entry.kind === 'file' && entry.name.toLowerCase().endsWith('.csv')) {
+          const f = await entry.getFile();
+          f.isRoot = depth === 0;
+          files.push(f);
+        } else if (entry.kind === 'directory' && depth < 2) await walk(entry, depth + 1);
+      }
+    };
+    await walk(dirHandle, 0);
     await loadFiles(files, dirHandle.name);
   }
   async function loadFiles(files, folderName) {
     events = []; corrections = {}; isSample = false;
     for (const f of files) {
       const text = await f.text();
-      if (f.name === CORRECTION_FILE) corrections = parseCorrections(text);
+      // 修正.csv は管理者用フォルダの直下にあるものだけ使う
+      const atRoot = f.isRoot ?? (f.webkitRelativePath ? f.webkitRelativePath.split('/').length <= 2 : true);
+      if (f.name === CORRECTION_FILE) { if (atRoot) corrections = parseCorrections(text); }
       else if (f.name.toLowerCase().endsWith('.csv')) events.push(...parseEvents(text));
     }
     $('status').textContent = `${folderName || 'フォルダ'}：${people().length}人・${events.length}件の記録`;

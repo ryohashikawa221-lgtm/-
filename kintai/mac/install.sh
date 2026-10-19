@@ -1,7 +1,7 @@
 #!/bin/bash
 # 勤怠記録のセットアップ（Mac 用）
 # 使い方: bash install.sh <名前> [共有フォルダのパス]
-#   フォルダを省略すると、OneDrive 内の「勤怠記録」を自動で探します。
+#   フォルダを省略すると、OneDrive 内の「勤怠_名前」フォルダを自動で探します。
 #   ※ swiftc が必要です。無い場合は先に「xcode-select --install」を実行してください。
 set -euo pipefail
 
@@ -11,10 +11,10 @@ INTERVAL="${INTERVAL:-15}"
 if [ -z "$NAME" ]; then read -r -p "管理画面に表示する名前: " NAME; fi
 
 if [ -z "$FOLDER" ]; then
-  FOLDER="$(find "$HOME/Library/CloudStorage" -maxdepth 3 -type d -name '勤怠記録' 2>/dev/null | head -n 1 || true)"
+  FOLDER="$(find "$HOME/Library/CloudStorage" -maxdepth 4 -type d -name "勤怠_$NAME" 2>/dev/null | head -n 1 || true)"
 fi
 if [ -z "$FOLDER" ] || [ ! -d "$FOLDER" ]; then
-  echo "OneDrive の中に「勤怠記録」フォルダが見つかりません。フォルダのパスを 2 番目に指定してください。"
+  echo "OneDrive の中に「勤怠_$NAME」フォルダが見つかりません。フォルダのパスを 2 番目に指定してください。"
   exit 1
 fi
 
