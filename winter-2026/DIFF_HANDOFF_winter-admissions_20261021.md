@@ -1,3 +1,5 @@
+> **最新版は Handoff Vault にあります**：`sundai_master_vault` の `DIFF_HANDOFF_WINTER_ADMISSIONS_20261021.md`（migration は `20261021230000` に付け替え済み）。このファイルは 10/21 時点の控えです。
+
 # DIFF_HANDOFF: 冬期講習2026 申込・定員管理（採用版）
 
 - ブランチ: `ryohashikawa221-lgtm/sundai_portal` の `cc/winter-admissions-20261021`（push 済み、PR 未作成）
